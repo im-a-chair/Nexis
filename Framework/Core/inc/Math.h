@@ -4,8 +4,7 @@
 #include <math.h>
 
 /** TODO:
- * finish function implementations
- * use SIMD.h
+ * implement SIMD.h usage
  */
 
 /** NXS_Vec2 */
@@ -284,25 +283,27 @@ float NXS_Mat4Determenant(const NXS_Mat4* restrict m);
 void NXS_Mat4Inverse(const NXS_Mat4* restrict m, NXS_Mat4* restrict out);
 
 /** NXS_QuaternionAdd */
-static inline NXS_Quaternion NXS_QuaternionAdd(const NXS_Quaternion a, const NXS_Quaternion b);
+#define NXS_QuaternionAdd(a, b) NXS_Vec4Add(a, b)
 
 /** NXS_QuaternionSub */
-static inline NXS_Quaternion NXS_QuaternionSub(const NXS_Quaternion a, const NXS_Quaternion b);
+#define NXS_QuaternionSub(a, b) NXS_Vec4Sub(a, b)
 
-/** NXS_QuaternionMul */
-NXS_Quaternion NXS_QuaternionMul(const NXS_Quaternion a, const NXS_Quaternion b);
+/** NXS_QuaternionMul
+ * Multiplies quaternion `a` by quaternion `b`.
+ * \returns the hamilton product of quaternion a and b
+ * \param a the first quaternion, to multiply by `a`
+ * \param b the second quaternion, to multiply `a` by
+ * 
+ * \warning Quaternions are non comunicative! This means that a*b is defferent from b*a,
+ * this function does a*b, so make sure you use the right order.
+ */
+static inline NXS_Quaternion NXS_QuaternionMul(const NXS_Quaternion a, const NXS_Quaternion b);
 
-/** NXS_QuaternionRDiv */
-NXS_Quaternion NXS_QuaternionRDiv(const NXS_Quaternion a, const NXS_Quaternion b);
+/** NXS_QuaternionSqrNorm */
+#define NXS_QuaternionSqrNorm(q) ((q.w*q.w) + (q.x*q.x) + (q.y*q.y) + (q.z*q.z))
 
-/** NXS_QuaternionLDiv */
-NXS_Quaternion NXS_QuaternionLDiv(const NXS_Quaternion a, const NXS_Quaternion b);
-
-/** NXS_QuaternionRotateVec3 */
-NXS_Vec3 NXS_QuaternionRotateVec3(const NXS_Quaternion q, const NXS_Vec3 v); // (v' = q*v*(q^-1))
-
-/** NXS_QuaternionNorm */
-static inline NXS_Quaternion NXS_QuaternionNorm(const NXS_Quaternion q);
+/** NXS_QuaternionSqrNorm */
+#define NXS_QuaternionNorm(q) sqrtf(NXS_QuaternionSqrNorm(q))
 
 /** NXS_QuaternionMag */
 #define NXS_QuaternionMag(q) NXS_Vec4Mag((NXS_Vec4)q)
@@ -311,39 +312,50 @@ static inline NXS_Quaternion NXS_QuaternionNorm(const NXS_Quaternion q);
 static inline NXS_Quaternion NXS_QuaternionConjugate(const NXS_Quaternion q);
 
 /** NXS_QuaternionInverse */
-NXS_Quaternion NXS_QuaternionInverse(const NXS_Quaternion q);
+static inline NXS_Quaternion NXS_QuaternionInverse(const NXS_Quaternion q);
+
+/** NXS_QuaternionRDiv */
+#define NXS_QuaternionRDiv(a, b) NXS_QuaternionMul(a, NXS_QuaternionInverse(b))
+
+/** NXS_QuaternionLDiv */
+#define NXS_QuaternionLDiv(a, b) NXS_QuaternionMul(NXS_QuaternionInverse(b), a)
+
+/** NXS_QuaternionRotateVec3
+ * (v' = q*v*(q^-1))
+ */
+NXS_Vec3 NXS_QuaternionRotateVec3(const NXS_Quaternion q, const NXS_Vec3 v);
 
 /** NXS_QuaternionSlerp */
 NXS_Quaternion NXS_QuaternionSlerp(const NXS_Quaternion a, const NXS_Quaternion b, float t);
 
-/** NXS_Ten3Add */
-void NXS_Ten3Add(const NXS_Ten3* restrict a, const NXS_Ten3* restrict b, NXS_Ten3* restrict out);
+// /** NXS_Ten3Add */
+// void NXS_Ten3Add(const NXS_Ten3* restrict a, const NXS_Ten3* restrict b, NXS_Ten3* restrict out);
 
-/** NXS_Ten3Sub */
-void NXS_Ten3Sub(const NXS_Ten3* restrict a, const NXS_Ten3* restrict b, NXS_Ten3* restrict out);
+// /** NXS_Ten3Sub */
+// void NXS_Ten3Sub(const NXS_Ten3* restrict a, const NXS_Ten3* restrict b, NXS_Ten3* restrict out);
 
-/** NXS_Ten3Mul */
-void NXS_Ten3Mul(const NXS_Ten3* restrict a, const NXS_Ten3* restrict b, NXS_Ten3* restrict out);
+// /** NXS_Ten3Mul */
+// void NXS_Ten3Mul(const NXS_Ten3* restrict a, const NXS_Ten3* restrict b, NXS_Ten3* restrict out);
 
-/** NXS_Ten3Ten3Scale */
-void NXS_Ten3Ten3Scale(const NXS_Ten3* restrict t, float scalar, NXS_Ten3* restrict out);
+// /** NXS_Ten3Ten3Scale */
+// void NXS_Ten3Ten3Scale(const NXS_Ten3* restrict t, float scalar, NXS_Ten3* restrict out);
 
-/** NXS_Ten3Vec2Mul */
-void NXS_Ten3Vec2Mul(const NXS_Ten3* restrict t, const NXS_Vec2 v, NXS_Ten3* restrict out);
+// /** NXS_Ten3Vec2Mul */
+// void NXS_Ten3Vec2Mul(const NXS_Ten3* restrict t, const NXS_Vec2 v, NXS_Ten3* restrict out);
 
-/** NXS_Ten3Vec3Mul */
-void NXS_Ten3Vec3Mul(const NXS_Ten3* restrict t, const NXS_Vec3 v, NXS_Ten3* restrict out);
+// /** NXS_Ten3Vec3Mul */
+// void NXS_Ten3Vec3Mul(const NXS_Ten3* restrict t, const NXS_Vec3 v, NXS_Ten3* restrict out);
 
-/** NXS_Ten3Vec4Mul */
-void NXS_Ten3Vec4Mul(const NXS_Ten3* restrict t, const NXS_Vec4 v, NXS_Ten3* restrict out);
+// /** NXS_Ten3Vec4Mul */
+// void NXS_Ten3Vec4Mul(const NXS_Ten3* restrict t, const NXS_Vec4 v, NXS_Ten3* restrict out);
 
-/** NXS_Ten3Mat2Mul */
-void NXS_Ten3Mat2Mul(const NXS_Ten3* restrict t, const NXS_Mat2* restrict m, NXS_Ten3* restrict out);
+// /** NXS_Ten3Mat2Mul */
+// void NXS_Ten3Mat2Mul(const NXS_Ten3* restrict t, const NXS_Mat2* restrict m, NXS_Ten3* restrict out);
 
-/** NXS_Ten3Mat3Mul */
-void NXS_Ten3Mat3Mul(const NXS_Ten3* restrict t, const NXS_Mat3* restrict m, NXS_Ten3* restrict out);
+// /** NXS_Ten3Mat3Mul */
+// void NXS_Ten3Mat3Mul(const NXS_Ten3* restrict t, const NXS_Mat3* restrict m, NXS_Ten3* restrict out);
 
-/** NXS_Ten3Mat4Mul */
-void NXS_Ten3Mat4Mul(const NXS_Ten3* restrict t, const NXS_Mat4* restrict m, NXS_Ten3* restrict out);
+// /** NXS_Ten3Mat4Mul */
+// void NXS_Ten3Mat4Mul(const NXS_Ten3* restrict t, const NXS_Mat4* restrict m, NXS_Ten3* restrict out);
 
 #endif //_NXS_MATH_H_

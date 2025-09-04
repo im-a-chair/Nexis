@@ -2,10 +2,6 @@
 #include "std.h"
 #include <math.h>
 
-/// REMEMBER: PROFORMANCE ABOVE ALL
-
-/// DONE: 71 / 92 (77.17~%)
-
 static inline NXS_Vec3 NXS_Vec2ToVec3(NXS_Vec2 v) {
     NXS_Vec3 ret = {
         .x = v.x,
@@ -254,6 +250,8 @@ static inline NXS_Vec2 NXS_Vec2Norm(const NXS_Vec2 v) {
     return ret;
 }
 static inline NXS_Vec2 NXS_Vec2Lerp(const NXS_Vec2 a, const NXS_Vec2 b, float t) {
+    NXS_ASSERT(t <= 1.0f);
+    NXS_ASSERT(t >= 0.0f);
     NXS_Vec2 ret = {
         .x = a.x + (b.x - a.x) * t,
         .y = a.y + (b.y - a.y) * t
@@ -326,6 +324,8 @@ static inline NXS_Vec3 NXS_Vec3Norm(const NXS_Vec3 v) {
     return ret;
 }
 static inline NXS_Vec3 NXS_Vec3Lerp(const NXS_Vec3 a, const NXS_Vec3 b, float t) {
+    NXS_ASSERT(t <= 1.0f);
+    NXS_ASSERT(t >= 0.0f);
     NXS_Vec3 ret = {
         .x = a.x + (b.x - a.x) * t,
         .y = a.y + (b.y - a.y) * t,
@@ -396,6 +396,8 @@ static inline NXS_Vec4 NXS_Vec4Norm(const NXS_Vec4 v) {
     return ret;
 }
 static inline NXS_Vec4 NXS_Vec4Lerp(const NXS_Vec4 a, const NXS_Vec4 b, float t) {
+    NXS_ASSERT(t <= 1.0f);
+    NXS_ASSERT(t >= 0.0f);
     NXS_Vec4 ret = {
         .x = a.x + (b.x - a.x) * t,
         .y = a.y + (b.y - a.y) * t,
@@ -405,18 +407,25 @@ static inline NXS_Vec4 NXS_Vec4Lerp(const NXS_Vec4 a, const NXS_Vec4 b, float t)
     return ret;
 }
 static inline void NXS_Mat2Add(const NXS_Mat2* restrict a, const NXS_Mat2* restrict b, NXS_Mat2* restrict out) {
+    NXS_ASSERT(a != b);
+    NXS_ASSERT(b != out);
     out->columns[0] = NXS_Vec2Add(a->columns[0], b->columns[0]);
     out->columns[1] = NXS_Vec2Add(a->columns[1], b->columns[1]);
 }
 static inline void NXS_Mat2Sub(const NXS_Mat2* restrict a, const NXS_Mat2* restrict b, NXS_Mat2* restrict out) {
+    NXS_ASSERT(a != b);
+    NXS_ASSERT(b != out);
     out->columns[0] = NXS_Vec2Sub(a->columns[0], b->columns[0]);
     out->columns[1] = NXS_Vec2Sub(a->columns[1], b->columns[1]);
 }
 static inline void NXS_Mat2Mul(const NXS_Mat2* restrict a, const NXS_Mat2* restrict b, NXS_Mat2* restrict out) {
+    NXS_ASSERT(a != b);
+    NXS_ASSERT(b != out);
     out->columns[0] = NXS_Mat2Transform(a, b->columns[0]);
     out->columns[1] = NXS_Mat2Transform(a, b->columns[1]);
 }
 static inline void NXS_Mat2Scale(const NXS_Mat2* restrict m, float scalar, NXS_Mat2* restrict out) {
+    NXS_ASSERT(m != out);
     out->columns[0] = NXS_Vec2Scale(m->columns[0], scalar);
     out->columns[1] = NXS_Vec2Scale(m->columns[1], scalar);
 }
@@ -426,6 +435,7 @@ static inline NXS_Vec2 NXS_Mat2Transform(const NXS_Mat2* restrict m, const NXS_V
     return NXS_Vec2Add(col0_scaled, col1_scaled);
 }
 static inline void NXS_Mat2Transpose(const NXS_Mat2* restrict m, NXS_Mat2* restrict out) {
+    NXS_ASSERT(m != out);
     out->m[0][0] = m->m[0][0]; // No change
     out->m[1][1] = m->m[1][1]; // No change
     out->m[0][1] = m->m[1][0]; // Swap
@@ -435,6 +445,7 @@ static inline float NXS_Mat2Determenant(const NXS_Mat2* restrict m) {
     return (m->m[0][0] * m->m[1][1]) - (m->m[0][1] * m->m[1][0]);
 }
 void NXS_Mat2Inverse(const NXS_Mat2* restrict m, NXS_Mat2* restrict out) {
+    NXS_ASSERT(m != out);
     const float det = (m->m[0][0] * m->m[1][1]) - (m->m[0][1] * m->m[1][0]);
     NXS_ASSERT(det > FLT_EPSILON);
     const float inv_det = 1.0f / det;
@@ -444,21 +455,28 @@ void NXS_Mat2Inverse(const NXS_Mat2* restrict m, NXS_Mat2* restrict out) {
     out->m[1][1] =  inv_det * m->m[0][0];
 }
 static inline void NXS_Mat3Add(const NXS_Mat3* restrict a, const NXS_Mat3* restrict b, NXS_Mat3* restrict out) {
+    NXS_ASSERT(a != b);
+    NXS_ASSERT(b != out);
     out->columns[0] = NXS_Vec3Add(a->columns[0], b->columns[0]);
     out->columns[1] = NXS_Vec3Add(a->columns[1], b->columns[1]);
     out->columns[2] = NXS_Vec3Add(a->columns[2], b->columns[2]);
 }
 static inline void NXS_Mat3Sub(const NXS_Mat3* restrict a, const NXS_Mat3* restrict b, NXS_Mat3* restrict out) {
+    NXS_ASSERT(a != b);
+    NXS_ASSERT(b != out);
     out->columns[0] = NXS_Vec3Sub(a->columns[0], b->columns[0]);
     out->columns[1] = NXS_Vec3Sub(a->columns[1], b->columns[1]);
     out->columns[2] = NXS_Vec3Sub(a->columns[2], b->columns[2]);
 }
 static inline void NXS_Mat3Mul(const NXS_Mat3* restrict a, const NXS_Mat3* restrict b, NXS_Mat3* restrict out) {
+    NXS_ASSERT(a != b);
+    NXS_ASSERT(b != out);
     out->columns[0] = NXS_Mat3Transform(a, b->columns[0]);
     out->columns[1] = NXS_Mat3Transform(a, b->columns[1]);
     out->columns[2] = NXS_Mat3Transform(a, b->columns[2]);
 }
 static inline void NXS_Mat3Scale(const NXS_Mat3* restrict m, float scalar, NXS_Mat3* restrict out) {
+    NXS_ASSERT(m != out);
     out->columns[0] = NXS_Vec3Scale(m->columns[0], scalar);
     out->columns[1] = NXS_Vec3Scale(m->columns[1], scalar);
     out->columns[2] = NXS_Vec3Scale(m->columns[2], scalar);
@@ -472,6 +490,7 @@ static inline NXS_Vec3 NXS_Mat3Transform(const NXS_Mat3* restrict m, const NXS_V
     return NXS_Vec3Add(temp, col2_scaled);
 }
 static inline void NXS_Mat3Transpose(const NXS_Mat3* restrict m, NXS_Mat3* restrict out) {
+    NXS_ASSERT(m != out);
     out->m[0][0] = m->m[0][0];
     out->m[0][1] = m->m[1][0];
     out->m[0][2] = m->m[2][0];
@@ -491,6 +510,7 @@ float NXS_Mat3Determenant(const NXS_Mat3* restrict m) {
            m->m[0][0] * m->m[1][2] * m->m[2][1];
 }
 void NXS_Mat3Inverse(const NXS_Mat3* restrict m, NXS_Mat3* restrict out) {
+    NXS_ASSERT(m != out);
     // Cache for readability and to help the optimizer.
     float m00 = m->m[0][0], m01 = m->m[0][1], m02 = m->m[0][2];
     float m10 = m->m[1][0], m11 = m->m[1][1], m12 = m->m[1][2];
@@ -515,24 +535,31 @@ void NXS_Mat3Inverse(const NXS_Mat3* restrict m, NXS_Mat3* restrict out) {
     out->m[2][2] = (m00 * m11 - m01 * m10) * inv_det;
 }
 static inline void NXS_Mat4Add(const NXS_Mat4* restrict a, const NXS_Mat4* restrict b, NXS_Mat4* restrict out) {
+    NXS_ASSERT(a != b);
+    NXS_ASSERT(b != out);
     out->columns[0] = NXS_Vec4Add(a->columns[0], b->columns[0]);
     out->columns[1] = NXS_Vec4Add(a->columns[1], b->columns[1]);
     out->columns[2] = NXS_Vec4Add(a->columns[2], b->columns[2]);
     out->columns[3] = NXS_Vec4Add(a->columns[3], b->columns[3]);
 }
 static inline void NXS_Mat4Sub(const NXS_Mat4* restrict a, const NXS_Mat4* restrict b, NXS_Mat4* restrict out) {
+    NXS_ASSERT(a != b);
+    NXS_ASSERT(b != out);
     out->columns[0] = NXS_Vec4Sub(a->columns[0], b->columns[0]);
     out->columns[1] = NXS_Vec4Sub(a->columns[1], b->columns[1]);
     out->columns[2] = NXS_Vec4Sub(a->columns[2], b->columns[2]);
     out->columns[3] = NXS_Vec4Sub(a->columns[3], b->columns[3]);
 }
 static inline void NXS_Mat4Mul(const NXS_Mat4* restrict a, const NXS_Mat4* restrict b, NXS_Mat4* restrict out) {
+    NXS_ASSERT(a != b);
+    NXS_ASSERT(b != out);
     out->columns[0] = NXS_Mat4Transform(a, b->columns[0]);
     out->columns[1] = NXS_Mat4Transform(a, b->columns[1]);
     out->columns[2] = NXS_Mat4Transform(a, b->columns[2]);
     out->columns[3] = NXS_Mat4Transform(a, b->columns[3]);
 }
 static inline void NXS_Mat4Scale(const NXS_Mat4* restrict m, float scalar, NXS_Mat4* restrict out) {
+    NXS_ASSERT(m != out);
     out->columns[0] = NXS_Vec4Scale(m->columns[0], scalar);
     out->columns[1] = NXS_Vec4Scale(m->columns[1], scalar);
     out->columns[2] = NXS_Vec4Scale(m->columns[2], scalar);
@@ -549,6 +576,7 @@ static inline NXS_Vec4 NXS_Mat4Transform(const NXS_Mat4* restrict m, const NXS_V
     return NXS_Vec4Add(temp0, temp1);
 }
 static inline void NXS_Mat4Transpose(const NXS_Mat4* restrict m, NXS_Mat4* restrict out) {
+    NXS_ASSERT(m != out);
     // Load columns into temporary local variables. This can help the optimizer
     // by improving data locality before the component-wise assignments.
     NXS_Vec4 c0 = m->columns[0];
@@ -588,6 +616,7 @@ float NXS_Mat4Determenant(const NXS_Mat4* restrict m) {
     return m00 * c0 + m01 * c1 + m02 * c2 + m03 * c3;
 }
 void NXS_Mat4Inverse(const NXS_Mat4* restrict m, NXS_Mat4* restrict out) {
+    NXS_ASSERT(m != out);
     //array[row][column]
     //array[z][y][x]
     //array[w][z][y][x]
@@ -711,63 +740,149 @@ void NXS_Mat4Inverse(const NXS_Mat4* restrict m, NXS_Mat4* restrict out) {
     out->m[2][3] = -(m20 * s4 - m21 * s2 + m23 * s0) * inv_det;
     out->m[3][3] =  (m20 * s3 - m21 * s1 + m22 * s0) * inv_det;
 }
-static inline NXS_Quaternion NXS_QuaternionAdd(const NXS_Quaternion a, const NXS_Quaternion b) {
-    return;
-}
-static inline NXS_Quaternion NXS_QuaternionSub(const NXS_Quaternion a, const NXS_Quaternion b) {
-    return;
-}
-NXS_Quaternion NXS_QuaternionMul(const NXS_Quaternion a, const NXS_Quaternion b) {
-    return;
-}
-NXS_Quaternion NXS_QuaternionRDiv(const NXS_Quaternion a, const NXS_Quaternion b) {
-    return;
-}
-NXS_Quaternion NXS_QuaternionLDiv(const NXS_Quaternion a, const NXS_Quaternion b) {
-    return;
-}
-NXS_Vec3 NXS_QuaternionRotateVec3(const NXS_Quaternion q, const NXS_Vec3 v) {
-    return;
-}
-static inline NXS_Quaternion NXS_QuaternionNorm(const NXS_Quaternion q) {
-    return;
+static inline NXS_Quaternion NXS_QuaternionMul(const NXS_Quaternion a, const NXS_Quaternion b) {
+    NXS_Quaternion new = {
+        .w = a.w*b.w - a.x*b.x - a.y*b.y - a.z*b.z,
+        .x = a.w*b.x + a.x*b.w + a.y*b.z - a.z*b.y,
+        .y = a.w*b.y - a.x*b.z + a.y*b.w + a.z*b.x,
+        .z = a.w*b.z + a.x*b.y - a.y*b.x + a.z*b.w
+    };
+    return new;
 }
 static inline NXS_Quaternion NXS_QuaternionConjugate(const NXS_Quaternion q) {
-    return;
+    NXS_Quaternion new = {
+        .w = q.w,
+        .x = -q.x,
+        .y = -q.y,
+        .z = -q.z
+    };
+    return new;
 }
-NXS_Quaternion NXS_QuaternionInverse(const NXS_Quaternion q) {
-    return;
+static inline NXS_Quaternion NXS_QuaternionInverse(const NXS_Quaternion q) {
+    float inv_n2 = 1.0f / NXS_QuaternionSqrNorm(q);
+    NXS_Quaternion new = {
+        .w = q.w * inv_n2,
+        .x = -q.x * inv_n2,
+        .y = -q.y * inv_n2,
+        .z = -q.z * inv_n2
+    };
+    return new;
+}
+NXS_Vec3 NXS_QuaternionRotateVec3(const NXS_Quaternion q, const NXS_Vec3 v) {
+    //approach when matrix would be reusable:
+    // NXS_Mat4 m4 = NXS_QuaternionToMat4(q);
+    // NXS_Mat3 m = NXS_Mat4ToMat3(&m4);
+    // return NXS_Mat3Transform(&m, v);
+
+    // squared terms
+    float qx2 = q.x * q.x;
+    float qy2 = q.y * q.y;
+    float qz2 = q.z * q.z;
+    float qw2 = q.w * q.w;
+
+    // products for the diagonal terms
+    float diag_xx = qw2 + qx2 - qy2 - qz2;
+    float diag_yy = qw2 - qx2 + qy2 - qz2;
+    float diag_zz = qw2 - qx2 - qy2 + qz2;
+    
+    // products for the off-diagonal terms
+    float qxy = 2.0f * q.x * q.y;
+    float qxz = 2.0f * q.x * q.z;
+    float qyz = 2.0f * q.y * q.z;
+    float qwx = 2.0f * q.w * q.x;
+    float qwy = 2.0f * q.w * q.y;
+    float qwz = 2.0f * q.w * q.z;
+
+    NXS_Vec3 res = {
+        .x = v.x * diag_xx + v.y * (qxy - qwz) + v.z * (qxz + qwy),
+        .y = v.x * (qxy + qwz) + v.y * diag_yy + v.z * (qyz - qwx),
+        .z = v.x * (qxz - qwy) + v.y * (qyz + qwx) + v.z * diag_zz
+    };
+    return res;
 }
 NXS_Quaternion NXS_QuaternionSlerp(const NXS_Quaternion a, const NXS_Quaternion b, float t) {
-    return;
+    NXS_ASSERT(t <= 1.0f);
+    NXS_ASSERT(t >= 0.0f);
+
+    NXS_Quaternion c = b;
+
+    float dot = NXS_Vec4Dot(a, b);
+
+    if (dot < 0.0f) {
+        dot = -dot;
+        c.w = -c.w;
+        c.x = -c.x;
+        c.y = -c.y;
+        c.z = -c.z;
+    }
+    
+    if (dot > 0.9995f) { // if angle is small, fall back to lerp
+        NXS_Quaternion res = {
+            .w = a.w + t * (c.w - a.w),
+            .x = a.x + t * (c.x - a.x),
+            .y = a.y + t * (c.y - a.y),
+            .z = a.z + t * (c.z - a.z)
+        };
+        return NXS_Vec4Scale(res, 1.0f / NXS_QuaternionNorm(res));
+    }
+
+    float angle = acosf(dot);
+
+    float inv_sa = 1.0f / sinf(angle);
+    float sat = sinf(angle * t) * inv_sa;
+    float sa1t = sinf(angle * (1.0f - t)) * inv_sa;
+
+    NXS_Quaternion ret = {
+        .w = sa1t*a.w + sat*c.w,
+        .x = sa1t*a.x + sat*c.x,
+        .y = sa1t*a.y + sat*c.y,
+        .z = sa1t*a.z + sat*c.z
+    };
+
+    return ret;
 }
-void NXS_Ten3Add(const NXS_Ten3* restrict a, const NXS_Ten3* restrict b, NXS_Ten3* restrict out) {
-    return;
-}
-void NXS_Ten3Sub(const NXS_Ten3* restrict a, const NXS_Ten3* restrict b, NXS_Ten3* restrict out) {
-    return;
-}
-void NXS_Ten3Mul(const NXS_Ten3* restrict a, const NXS_Ten3* restrict b, NXS_Ten3* restrict out) {
-    return;
-}
-void NXS_Ten3Ten3Scale(const NXS_Ten3* restrict t, float scalar, NXS_Ten3* restrict out) {
-    return;
-}
-void NXS_Ten3Vec2Mul(const NXS_Ten3* restrict t, const NXS_Vec2 v, NXS_Ten3* restrict out) {
-    return;
-}
-void NXS_Ten3Vec3Mul(const NXS_Ten3* restrict t, const NXS_Vec3 v, NXS_Ten3* restrict out) {
-    return;
-}
-void NXS_Ten3Vec4Mul(const NXS_Ten3* restrict t, const NXS_Vec4 v, NXS_Ten3* restrict out) {
-    return;
-}
-void NXS_Ten3Mat2Mul(const NXS_Ten3* restrict t, const NXS_Mat2* restrict m, NXS_Ten3* restrict out) {
-    return;
-}
-void NXS_Ten3Mat3Mul(const NXS_Ten3* restrict t, const NXS_Mat3* restrict m, NXS_Ten3* restrict out) {
-    return;
-}
-void NXS_Ten3Mat4Mul(const NXS_Ten3* restrict t, const NXS_Mat4* restrict m, NXS_Ten3* restrict out) {
-    return;
-}
+// void NXS_Ten3Add(const NXS_Ten3* restrict a, const NXS_Ten3* restrict b, NXS_Ten3* restrict out) {
+//     NXS_ASSERT(a != b);
+//     NXS_ASSERT(b != out);
+//     return;
+// }
+// void NXS_Ten3Sub(const NXS_Ten3* restrict a, const NXS_Ten3* restrict b, NXS_Ten3* restrict out) {
+//     NXS_ASSERT(a != b);
+//     NXS_ASSERT(b != out);
+//     return;
+// }
+// void NXS_Ten3Mul(const NXS_Ten3* restrict a, const NXS_Ten3* restrict b, NXS_Ten3* restrict out) {
+//     NXS_ASSERT(a != b);
+//     NXS_ASSERT(b != out);
+//     return;
+// }
+// void NXS_Ten3Ten3Scale(const NXS_Ten3* restrict t, float scalar, NXS_Ten3* restrict out) {
+//     return;
+// }
+// void NXS_Ten3Vec2Mul(const NXS_Ten3* restrict t, const NXS_Vec2 v, NXS_Ten3* restrict out) {
+//     NXS_ASSERT(t != out);
+//     return;
+// }
+// void NXS_Ten3Vec3Mul(const NXS_Ten3* restrict t, const NXS_Vec3 v, NXS_Ten3* restrict out) {
+//     NXS_ASSERT(t != out);
+//     return;
+// }
+// void NXS_Ten3Vec4Mul(const NXS_Ten3* restrict t, const NXS_Vec4 v, NXS_Ten3* restrict out) {
+//     NXS_ASSERT(t != out);
+//     return;
+// }
+// void NXS_Ten3Mat2Mul(const NXS_Ten3* restrict t, const NXS_Mat2* restrict m, NXS_Ten3* restrict out) {
+//     NXS_ASSERT(t != m);
+//     NXS_ASSERT(m != out);
+//     return;
+// }
+// void NXS_Ten3Mat3Mul(const NXS_Ten3* restrict t, const NXS_Mat3* restrict m, NXS_Ten3* restrict out) {
+//     NXS_ASSERT(t != m);
+//     NXS_ASSERT(m != out);
+//     return;
+// }
+// void NXS_Ten3Mat4Mul(const NXS_Ten3* restrict t, const NXS_Mat4* restrict m, NXS_Ten3* restrict out) {
+//     NXS_ASSERT(t != m);
+//     NXS_ASSERT(m != out);
+//     return;
+// }

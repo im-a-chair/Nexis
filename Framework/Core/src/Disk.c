@@ -1,0 +1,1 @@
+// for saving and loading state and config, either in memory or on the disk, probably through JSON

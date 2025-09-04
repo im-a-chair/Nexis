@@ -1,0 +1,30 @@
+<!-- main page and index for the tutorial pages in [here](./Tutorial/)
+should have a few parts/tutorials (each of these per level; IDE, SDK/CLI; framework only)
+- general walkthrough
+- 'hello world' project
+- adding / removing 'modules' (e.g. physics)
+- 2D simple topdown game
+- 2D simple platformer
+- 3D simple game
+- per module extensive tutorial / walkthrough
+    - Core
+    - Display
+    - Input
+    - Scripting
+        - Lua
+        - Python
+        - C#
+        - ...
+    - Physics
+        - 2D: NexisPhysc2D, box2D, etc...
+        - 3D: NexisPhysc3D, JoltPhysc, Bullet, ODE, Havoc, etc...
+    - Rendering & GPGPU
+        - SDL_render
+        - SDL_gpu
+        - OpenGL
+        - DirectX
+        - DirectX3D
+        - Vulkan
+        - OpenCL
+        - ...
+    - ... -->

@@ -39,10 +39,10 @@ def run_cmake(target_name, args):
     if args.prefix:
         print(f"  - INSTALL_PREFIX: {args.prefix}")
 
-    # configure & build
+    # configure
     config_cmd = [
         "cmake",
-        f"-S../../{target_name}",
+        f"-S./../../../../../{target_name}",
         "-B.",
         f"-DCMAKE_BUILD_TYPE={args.build_type}",
         f"-DPLATFORM={args.platform}",
@@ -50,7 +50,18 @@ def run_cmake(target_name, args):
         f"-DOPTIMIZATION_LEVEL={args.optimize}"
     ]
     if subprocess.run(config_cmd).returncode != 0:
-        print("CMake configure and build failed.", file=sys.stderr)
+        print("CMake configure failed.", file=sys.stderr)
+        sys.exit(1)
+
+    # build
+    print("Building...")
+    config_cmd = [
+        "cmake",
+        f"--build",
+        f"."
+    ]
+    if subprocess.run(config_cmd).returncode != 0:
+        print("CMake build failed.", file=sys.stderr)
         sys.exit(1)
 
     # install

@@ -1,6 +1,9 @@
 #!/bin/bash
 
 # make `-l, --no-lib` and `-c, --no-cli` into `-n, --no <cli|lib>`
+# add `-x, --SIMD <SSE|SSE2|SSE3|SSE4.1|SSE4.2|AVX|AVX2|AVX512|NEON|SVE|SME>`
+# add `-t, --threads <count>` to set `NXS_THREAD_COUNT`
+# add `-n, --native` for native settings, e.g. for debug
 # add `-C, --compiler <compiler|path>` -- will fail if not found
 # add `-L, --linker <linker|path>` -- will fail if not found
 # add `-A, --assembler <assembler|path>` -- will fail if not found
@@ -130,7 +133,7 @@ run_cmake() {
       -DARCHITECTURE="${ARCHITECTURE}" \
       -DOPTIMIZATION_LEVEL="${OPTIMIZATION_LEVEL}"
 
-    echo "Building the project..."
+    echo "Building..."
     cmake --build .
 
     # install

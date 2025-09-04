@@ -70,7 +70,7 @@ see [IDE Docs]()
 ### System Requirments
 - x86 or arm CPU 32 or 64 bit
 - Multiple cores prefered
-- SIMD support prefered (SSE, SSE2, SSE3, SE4.1, SSE4.2, AVX, AVX2, NEON, SVX, or SVX2)
+- SIMD support prefered (SSE, SSE2, SSE3, SE4.1, SSE4.2, AVX, AVX2, NEON, SVE, SME)
 
 ### Dependencies
 - SDL3

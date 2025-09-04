@@ -8,12 +8,13 @@ A list of all planed features, TODO and done. Per catagory.
 
 ## Framework
 - [ ] Core
-    - [ ] build system
+    - [/] build system
+        - use cmake toolchain file instead of this current unholy abomination
     - [X] std
     - [X] Logging
     - [/] Types
     - [X] ECS
-    - [/] Math
+    - [X] Math
     - [X] Scenes
     - [ ] Events
         - [ ] Event types

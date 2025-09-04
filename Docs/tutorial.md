@@ -6,6 +6,7 @@ should have a few parts/tutorials (each of these per level; IDE, SDK/CLI; framew
 - 2D simple topdown game
 - 2D simple platformer
 - 3D simple game
+- Creating your own 'module'
 - per module extensive tutorial / walkthrough
     - Core
     - Display

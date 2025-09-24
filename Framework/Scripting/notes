@@ -1,0 +1,3 @@
+- main: Lua
+- dynamic FFI interfacing with API
+<!-- - The Scripting lib (should also just have a function pointer component for native scripting), has components and systems for embedding Lua and using it for game scripting, also includes the Engine scripting API provided to the LuaVM to be used in scripts -->

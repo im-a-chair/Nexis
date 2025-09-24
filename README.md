@@ -76,7 +76,7 @@ see [IDE Docs]()
 - SDL3
 
 ### Compiling
-note: gcc | clang recomended
+note: gcc | clang recomended (in cases like `nxis_float16_to_float32` actually results in faster code than MSVC)
 - run a `build.*` file, for options use `-h`or `--help`, though many wont work yet.
 
 #### Prerequisites

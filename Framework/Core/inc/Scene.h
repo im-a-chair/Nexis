@@ -6,6 +6,7 @@
  * documantation
  * making `NXS_Asset` opaque
  * improving `NXS_GetData` and functions that use it
+ * implement concurrency support (`Jobs.h`)
  */
 
 /** General structure

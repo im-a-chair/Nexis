@@ -1,0 +1,2 @@
+- use rust for security
+- add FPU and other CPU hardware control lib(s) for computation sync/consistency

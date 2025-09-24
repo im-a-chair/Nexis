@@ -3,6 +3,10 @@
 #include "Log.h"
 
 /** TODO:
+ * use `NXS_ALLOC_FUNC` on functions that return a pointer to newly allocated memory
+ * add concurrency support by using `Jobs.h` functions in system execution functions like `NXS_ECS_RunInputSystemStage`
+ *  - implement mutexes and atomics in `NXS_ECS_World`, `NXS_ECS_Archetype` & `NXS_ECS_ComponentPool` for concurrency
+ * use a FAM (flexible array member) pattern for allocating dynamic arrays to assure data locality
  * simplefy component pool struct into void** to directly pass to systems
  *  - this means the system running approach can be more flexible,
  *    since it no longer needs the stack locality
@@ -11,6 +15,8 @@
  * implement an incremental query cache update;
  *  - When a new archetype is created (or an entity changes archetype),
  *    you only need to check that one new archetype against all existing queries.
+ * Maybe implement free-list allocator / bump allocator memory model
+ * Apply SIMD where possible
  */
 
 #define NXS_ECS_DEFAULT_ARCHETYPE_CAPACITY 16

@@ -9,10 +9,9 @@ A list of all planed features, TODO and done. Per catagory.
 ## Framework
 - [ ] Core
     - [/] build system
-        - use cmake toolchain file instead of this current unholy abomination
+        - use cmake toolchain file <!-- instead of this current unholy abomination -->
     - [X] std
     - [X] Logging
-    - [/] Types
     - [X] ECS
     - [X] Math
     - [X] Scenes
@@ -21,9 +20,13 @@ A list of all planed features, TODO and done. Per catagory.
         - [ ] Event struct
         - [ ] Event Queue
         - [ ] Event Callbacks
-    - [ ] Threads
-    - [ ] Coroutines
-    - [ ] SIMD
+    - [ ] Jobs/Concurrency
+        - [ ] Threads
+        - [ ] Coroutines
+    - [X] SIMD
+        - [X] x86
+        - [X] arm
+        - [ ] WASM
     - [ ] Disk I/O
     - [ ] Time
         - [ ] Time

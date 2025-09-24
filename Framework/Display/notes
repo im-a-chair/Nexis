@@ -1,0 +1,6 @@
+- windowing
+- popup & tooltip windows
+- hardware display interfacing
+- pixel surfaces
+- 'CPU rendering'
+<!-- - The Windowing/Video/Display lib, this has components for windows, popups, message boxes, drag and drop, displaying image data on the screen, pixel-surface components, etc... (i.e. cpu rendering) -->

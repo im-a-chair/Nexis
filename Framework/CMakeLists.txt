@@ -23,6 +23,14 @@ if(NOT CMAKE_C_COMPILER_ID MATCHES "GNU|Clang|MSVC")
     message(FATAL_ERROR "Compiler not supported.")
 endif()
 
+# get version from the latest Git tag
+execute_process(
+    COMMAND git describe --tags --always --long --match "v*"
+    WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/.."
+    OUTPUT_VARIABLE VERSION
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+)
+
 # set flags based on the CLI-provided OPTIMIZATION_LEVEL
 set(COMPILER_FLAGS
     # default
@@ -42,12 +50,20 @@ set(COMPILER_FLAGS
     "$<$<AND:$<OPTIMIZATION_LEVEL:2>,$<CMAKE_C_COMPILER_ID:MSVC>>:/O2>"
 
     # -O3
-    "$<$<AND:$<OPTIMIZATION_LEVEL:3>,$<OR:$<CMAKE_C_COMPILER_ID:GNU>,$<CMAKE_C_COMPILER_ID:Clang>>>:-O3;-flto;-ffast-math>"
-    "$<$<AND:$<OPTIMIZATION_LEVEL:3>,$<CMAKE_C_COMPILER_ID:MSVC>>:/O2;/Ox;/GL;/LTCG;/fp:fast>"
+    "$<$<AND:$<OPTIMIZATION_LEVEL:3>,$<OR:$<CMAKE_C_COMPILER_ID:GNU>,$<CMAKE_C_COMPILER_ID:Clang>>>:-O3>"
+    "$<$<AND:$<OPTIMIZATION_LEVEL:3>,$<CMAKE_C_COMPILER_ID:MSVC>>:/O2;/Ox;/GL>"
 
-    # -O4 -- less stable (only makes difference with GNU/Clang)
-    "$<$<AND:$<OPTIMIZATION_LEVEL:4>,$<OR:$<CMAKE_C_COMPILER_ID:GNU>,$<CMAKE_C_COMPILER_ID:Clang>>>:-Os;-Ofast;-flto;-ffast-math>"
+    # -O4
+    "$<$<AND:$<OPTIMIZATION_LEVEL:4>,$<OR:$<CMAKE_C_COMPILER_ID:GNU>,$<CMAKE_C_COMPILER_ID:Clang>>>:-O3;-flto;-ffast-math;-ffp-contract=fast>"
     "$<$<AND:$<OPTIMIZATION_LEVEL:4>,$<CMAKE_C_COMPILER_ID:MSVC>>:/O2;/Ox;/GL;/LTCG;/fp:fast>"
+
+    # -O5 -- less stable (only makes difference with GNU/Clang)
+    "$<$<AND:$<OPTIMIZATION_LEVEL:5>,$<OR:$<CMAKE_C_COMPILER_ID:GNU>,$<CMAKE_C_COMPILER_ID:Clang>>>:-Os;-Ofast>"
+    "$<$<AND:$<OPTIMIZATION_LEVEL:5>,$<CMAKE_C_COMPILER_ID:MSVC>>:/O2;/Ox;/GL>"
+
+    # -O6 -- less stable (only makes difference with GNU/Clang)
+    "$<$<AND:$<OPTIMIZATION_LEVEL:6>,$<OR:$<CMAKE_C_COMPILER_ID:GNU>,$<CMAKE_C_COMPILER_ID:Clang>>>:-Os;-Ofast;-flto;-ffast-math;-ffp-contract=fast>"
+    "$<$<AND:$<OPTIMIZATION_LEVEL:6>,$<CMAKE_C_COMPILER_ID:MSVC>>:/O2;/Ox;/GL;/LTCG;/fp:fast>"
 
     # set march native if no arch provided
     "$<$<AND:$<CMAKE_BUILD_TYPE:Debug>,$<ARCHITECTURE:"">,$<OR:$<CMAKE_C_COMPILER_ID:GNU>,$<CMAKE_C_COMPILER_ID:Clang>>>:-march=native>)"
@@ -78,6 +94,9 @@ add_compile_definitions(
     $<$<OR:$<CMAKE_SYSTEM_PROCESSOR:x86_64>,$<CMAKE_SYSTEM_PROCESSOR:x64>,$<CMAKE_SYSTEM_PROCESSOR:i686>>:DNXS_X64>
     $<$<OR:$<CMAKE_SYSTEM_PROCESSOR:arm>,$<CMAKE_SYSTEM_PROCESSOR:arm32>>:DNXS_AMR32>
     $<$<OR:$<CMAKE_SYSTEM_PROCESSOR:arm64>,$<CMAKE_SYSTEM_PROCESSOR:aarch>,$<CMAKE_SYSTEM_PROCESSOR:aarch64>>:NXS_ARM64>
+
+    # version macro
+    NXS_VERSION="${VERSION}"
 )
 
 # SDL3

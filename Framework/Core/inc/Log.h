@@ -2,10 +2,6 @@
 #define _NXS_LOG_H_
 #include "std.h"
 
-#ifndef _NXS_INIT_LOG_STR_CAP
-#define _NXS_INIT_LOG_STR_CAP 10
-#endif
-
 /// TODO: for in Display lib: popup callback window(s) for warnings and errors
 
 /** NXS_ErrorCallback

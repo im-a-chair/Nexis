@@ -3,12 +3,14 @@
 # make `-l, --no-lib` and `-c, --no-cli` into `-n, --no <cli|lib>`
 # add `-x, --SIMD <SSE|SSE2|SSE3|SSE4.1|SSE4.2|AVX|AVX2|AVX512|NEON|SVE|SME>`
 # add `-t, --threads <count>` to set `NXS_THREAD_COUNT`
-# add `-n, --native` for native settings, e.g. for debug
+# add `-n, --native` for native settings, e.g. for debug (also scan system for SIMD sets)
 # add `-C, --compiler <compiler|path>` -- will fail if not found
 # add `-L, --linker <linker|path>` -- will fail if not found
 # add `-A, --assembler <assembler|path>` -- will fail if not found
 # add `-o, --outdir <dir>`
 # add `-v, --version`
+# add `-R, --rust` -- to use `RustCore` instead of C Core
+# add `-X, --retro` -- to use `RetroCore` instead of base Core
 
 set -euo pipefail
 

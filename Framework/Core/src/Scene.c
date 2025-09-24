@@ -17,8 +17,7 @@ NXS_LibHandle* NXS_LoadLib(const char* path) {
     defined(SDL_PLATFORM_OSF) || defined(SDL_PLATFORM_HAIKU)
         ".so";
 #elif defined(SDL_PLATFORM_WIN32) || defined(SDL_PLATFORM_WINDOWS) || \
-    defined(SDL_PLATFORM_CYGWIN) || defined(SDL_PLATFORM_NGAGE) || \
-    defined(SDL_PLATFORM_OS2)
+    defined(SDL_PLATFORM_CYGWIN) || defined(SDL_PLATFORM_OS2)
         ".dll";
 #elif defined(SDL_PLATFORM_3DS) || defined(SDL_PLATFORM_AIX)
         ".a";
@@ -57,6 +56,8 @@ NXS_Asset NXS_GetAsset(NXS_LibHandle* lib, const char* name) {
     char start_sym[256];
     char end_sym[256];
     char size_sym[256];
+
+    NXS_ASSERT(strlen(name) + strlen("_binary__start") + 1 <= 256); //to avoid buffer overflows
 
     //create symbol names
     snprintf(start_sym, sizeof(start_sym), "_binary_%s_start", name);

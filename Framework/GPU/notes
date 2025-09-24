@@ -1,0 +1,5 @@
+- seperate 2D, 3D and GPGPU
+- add GPGPU
+- make GPGPU based math lib
+- seperate Vulkan, OpenGL, DirectX, SDL_render, SDL_gpu and others
+- glsl, hlsl, direct SPIR-V, Slang, etc...

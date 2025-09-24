@@ -1,0 +1,13 @@
+# notes
+- Keyboard
+- mouse
+- touch
+- joystick
+- game-controller
+- touch
+- gyro?
+- haptic-out?
+- pen?
+- ...
+
+<!-- - The Input lib, which has basically all components and systems for taking info from the OS, though mainly input from external devices or simulated by the OS or even another application -->

@@ -1,5 +1,5 @@
-#ifndef _NXS_TYPES_H_
-#define _NXS_TYPES_H_
+#ifndef _NXS_DYNAMIC_ARRAY_H_
+#define _NXS_DYNAMIC_ARRAY_H_
 #include "std.h"
 
 /** NXS_DynamicArray
@@ -217,45 +217,4 @@ bool NXS_DynamicArrayEmpty(NXS_DynamicArray* dynarr);
  */
 bool NXS_DynamicArrayPoll(NXS_DynamicArray* dynarr, void* out);
 
-//hashmap
-typedef struct NXS_HashMap_T NXS_HashMap;
-NXS_HashMap* NXS_CreateHashMap(size_t init_cap); //allocates and initializes a hash map
-void NXS_DestroyHashMap(NXS_HashMap* map); //clears and frees a hash map
-bool NXS_HashMapInsert(NXS_HashMap* map, size_t key, void* value, size_t typesize); //adds a item to the map
-size_t /*returns typesize*/ NXS_HashMapGet(NXS_HashMap* map, size_t key, void* out); //returns the value associated with a given key -- TwoPassQuerry?
-bool NXS_HashMapSet(NXS_HashMap* map, size_t key, void* value); //sets the value associated with a given key
-bool NXS_HashMapRemove(NXS_HashMap* map, size_t key); //remove item at a given key
-bool NXS_HashMapContains(NXS_HashMap* map, size_t key); //checks if a item with the given key is present
-bool NXS_HashMapFind(NXS_HashMap* map, void* value, size_t typesize); //searches the map for a item with the given value -- prob. slow
-size_t NXS_HashMapSize(NXS_HashMap* map); //returns the item count
-bool NXS_HashMapClear(NXS_HashMap* map); //sets all items to an equivelent of 0/NULL but doesnt deallocate, leaving the capacity the same, but the count at 0
-
-//quad- and oct- tree (make sure to use a continuous block of memory) -- for spatial partitioning
-    //insert(T item) -- adds an item to the appropriate node in the tree
-    //query_range(Rect rect) -- Returns a list of all objects within a given rectangular region. This is the most crucial function for collision detection or frustum culling, and its efficiency is the entire point of the data structure.
-    //remove(T item) -- Removes an item from the tree
-    //build(List<T> items)
-    //update(T item)
-    //clear()
-    //i dont know these structures that well, but i'd probably add more functions, in a way similar to with the above types
-
-//heap (tree) -- commonly used for a priority queue
-    //insert(T item) -- Adds an item to the heap and then re-sorts it to maintain the heap property.
-    //get_min() (for a min-heap) or get_max() (for a max-heap) -- Returns the top item. This is an O(1) operation.
-    //extract_min() / extract_max() -- Removes and returns the top item. This requires a re-sort, so it's an O(log n) operation.
-    //size()
-    //empty()
-    //i dont know this structure that well, but i'd probably add more functions, in a way similar to with the above types
-
-//graph (like with tree, mind memory)
-    //add_node(T item) -- Adds a new node to the graph.
-    //add_edge(T from, T to) -- Connects two nodes with an edge.
-    //remove_node(T item) -- Removes a node and all its connected edges.
-    //get_neighbors(T node) -- Returns a list of all nodes connected to a given node.
-    //add_directed_edge(T from, T to, float weight): Most game engine graphs are weighted (for pathfinding costs) and directed (navigation can be one-way).
-    //has_edge(T from, T to): A quick check for connectivity between two nodes.
-    //get_edge_weight(T from, T to): Returns the cost of traversing a specific edge.
-    //Search functions -- A game engine will need search algorithms, typically implemented outside the graph structure itself, but operating on it. The most common are breadth-first search (BFS) and depth-first search (DFS), as well as A* for pathfinding.
-    //i dont know this structure that well, but i'd probably add more functions, in a way similar to with the above types
-
-#endif //_NXS_TYPES_H_
+#endif //_NXS_DYNAMIC_ARRAY_H_

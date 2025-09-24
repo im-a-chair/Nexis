@@ -2,8 +2,8 @@
 
 # file(GLOB NxisCoreSource "./src/*.c" "./src/*/*.c")
 set(NxisCoreSource
-    src/Coroutines.c
-    src/Disk.c
+    src/Coroutines.rs
+    src/Disk.rs
     src/ECS.c
     src/Encryption.c
     src/Events.c
@@ -11,7 +11,7 @@ set(NxisCoreSource
     src/Math.c
     src/Scene.c
     src/SIMD.c
-    src/Threads.c
+    src/Threads.rs
     src/Time.c
     src/Types.c
     src/Components/ChildrenComponent.c

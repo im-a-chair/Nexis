@@ -1,5 +1,5 @@
-#ifndef _NXS_SCENE_H_
-#define _NXS_SCENE_H_
+#ifndef NXS_SCENE_H
+#define NXS_SCENE_H
 #include "ECS.h"
 
 /** TODO:
@@ -7,6 +7,13 @@
  * making `NXS_Asset` opaque
  * improving `NXS_GetData` and functions that use it
  * implement concurrency support (`Jobs.h`)
+ *  - make `NXS_RunScene` non-blocking to allow concurrent scenes
+ *  - instead make a `NXS_RunScene`-ish named function,
+ *    that does the scene init and pushes the next step as a job,
+ *    with each following step pushing the next one as a job, and
+ *    each loop itteration, not conditionally looping,
+ *    but conditionally pushing the loop or quit as a job
+ *  - make sure to group entities and submit as batch, for efficiency
  */
 
 /** General structure
@@ -234,4 +241,4 @@ NXS_Asset NXS_GetAsset(NXS_LibHandle* lib, const char* name); //from lib (to get
  */
 NXS_Scene* NXS_RunScene(NXS_Scene* scene); //(to do the whole ECS systems and funcptr speil for you)
 
-#endif //_NXS_SCENE_H_
+#endif //NXS_SCENE_H

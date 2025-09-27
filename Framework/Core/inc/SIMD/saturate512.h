@@ -1,5 +1,5 @@
-#ifndef _NXS_SIMD512_SAT_H_
-#define _NXS_SIMD512_SAT_H_
+#ifndef NXS_SIMD512_SAT_H
+#define NXS_SIMD512_SAT_H
 #include "std.h"
 #include "SIMD/simd.h"
 
@@ -3783,4 +3783,4 @@ NXS_STATIC_INLINE nxis_float64x8_t nxis_bit_deposit_float64x8_sat(const nxis_flo
     return;
 }
 
-#endif //_NXS_SIMD512_SAT_H_
+#endif //NXS_SIMD512_SAT_H

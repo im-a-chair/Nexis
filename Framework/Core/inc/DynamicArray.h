@@ -1,5 +1,5 @@
-#ifndef _NXS_DYNAMIC_ARRAY_H_
-#define _NXS_DYNAMIC_ARRAY_H_
+#ifndef NXS_DYNAMIC_ARRAY_H
+#define NXS_DYNAMIC_ARRAY_H
 #include "std.h"
 
 /** NXS_DynamicArray
@@ -217,4 +217,4 @@ bool NXS_DynamicArrayEmpty(NXS_DynamicArray* dynarr);
  */
 bool NXS_DynamicArrayPoll(NXS_DynamicArray* dynarr, void* out);
 
-#endif //_NXS_DYNAMIC_ARRAY_H_
+#endif //NXS_DYNAMIC_ARRAY_H

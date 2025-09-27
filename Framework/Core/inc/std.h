@@ -1,5 +1,5 @@
-#ifndef _NXS_STD_H_
-#define _NXS_STD_H_
+#ifndef NXS_STD_H
+#define NXS_STD_H
 #include <stdint.h>
 #include <string.h>
 #include <stdlib.h>
@@ -82,7 +82,7 @@
     #define NXS_BYTE_ORDER_LITTLE_ENDIAN 1
 #elif defined(NXS_ARM) || defined(NXS_ARM64) || defined(__aarch64__) || defined(_M_ARM64) || defined(__arm__) || defined(_M_ARM)
     #if !defined(NXS_ARM) && !defined(NXS_ARM64) && (defined(__aarch64__) || defined(_M_ARM64))
-        #define NXS_X64
+        #define NXS_ARM64
         #define NXS_ARM 64
         #define NXS_VEC_ALIGN 16
     #elif !defined(NXS_ARM)
@@ -121,7 +121,6 @@
 	#error "CPU architecture no supported"
 #endif
 
-///Compiler (and TODO: compiler specific macros)
 #if defined(__GNUC__)
     #define NXS_COMPILER_GCC __GNUC__
     #ifdef NXS_X86
@@ -323,29 +322,6 @@
 	#error "compiler not supported"
 #endif
 
-//stdint
-typedef unsigned int nxis_uint_t;
-typedef signed int nxis_int_t;
-typedef int8_t nxis_int8_t;
-typedef uint8_t nxis_uint8_t;
-typedef int16_t nxis_int16_t;
-typedef uint16_t nxis_uint16_t;
-typedef int32_t nxis_int32_t;
-typedef uint32_t nxis_uint32_t;
-typedef int64_t nxis_int64_t;
-typedef uint64_t nxis_uint64_t;
-#if defined(NXS_X86)
-    typedef _Float32 nxis_float32_t;
-    typedef _Float64 nxis_float64_t;
-#elif defined(NXS_ARM_NEON) || defined(NXS_ARM_SVE)
-    typedef float32_t nxis_float32_t;
-    typedef float64_t nxis_float64_t;
-#else
-    #warning "using fallback `nxis_float32_t` and `nxis_float64_t` definitions as `float` and `double`, not guaranteed to be 32 & 64 bits, use with caution!"
-    typedef float nxis_float32_t NXS_ALIGN(4);
-    typedef double nxis_float64_t NXS_ALIGN(8);
-#endif
-
 #if defined(NXS_COMPILER_GCC) || defined(NXS_COMPILER_CLANG)
     #include <malloc.h>
     #define NXS_ALIGN(N) __attribute__((aligned(N)))
@@ -359,6 +335,21 @@ typedef uint64_t nxis_uint64_t;
 #else
     #error "compiler not supported"
 #endif
+
+//stdint
+typedef unsigned int nxis_uint_t;
+typedef signed int nxis_int_t;
+typedef int8_t nxis_int8_t;
+typedef uint8_t nxis_uint8_t;
+typedef int16_t nxis_int16_t;
+typedef uint16_t nxis_uint16_t;
+typedef int32_t nxis_int32_t;
+typedef uint32_t nxis_uint32_t;
+typedef int64_t nxis_int64_t;
+typedef uint64_t nxis_uint64_t;
+#warning "using fallback `nxis_float32_t` and `nxis_float64_t` definitions as `float` and `double`, not guaranteed to be 32 & 64 bits, use with caution!"
+typedef float nxis_float32_t NXS_ALIGN(4);
+typedef double nxis_float64_t NXS_ALIGN(8);
 
 // ----- Two-Pass Querry Macro -----
 
@@ -422,4 +413,4 @@ typedef uint64_t nxis_uint64_t;
 #define NXS_TWO_PASS_QUERRY_SIZE_RET_FUNC(func, ...) \
     _NXS_TPQ_GET_MACRO(__VA_ARGS__, NXS_TWO_PASS_QUERY_SRET_EXT_FARGS, NXS_TWO_PASS_QUERY_SRET_EXT_FARGS_0)(func, ##__VA_ARGS__)
 
-#endif //_NXS_STD_H_
+#endif //NXS_STD_H

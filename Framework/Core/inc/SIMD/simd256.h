@@ -1,5 +1,5 @@
-#ifndef _NXS_SIMD256_H_
-#define _NXS_SIMD256_H_
+#ifndef NXS_SIMD256_H
+#define NXS_SIMD256_H
 #include "std.h"
 #include "SIMD/simd.h"
 

@@ -8,31 +8,30 @@ A list of all planed features, TODO and done. Per catagory.
 
 ## Framework
 - [ ] Core
-    - [/] build system
-        - use cmake toolchain file <!-- instead of this current unholy abomination -->
+    - [/] build system <!-- maybe use cmake toolchain files -->
     - [X] std
     - [X] Logging
     - [X] ECS
     - [X] Math
     - [X] Scenes
+    - [X] SIMD
+        - [X] x86
+        - [X] arm
+        - [ ] WASM
+    - [ ] Jobs/Concurrency
+        - [ ] Threads
+        - [ ] Coroutines
     - [ ] Events
         - [ ] Event types
         - [ ] Event struct
         - [ ] Event Queue
         - [ ] Event Callbacks
-    - [ ] Jobs/Concurrency
-        - [ ] Threads
-        - [ ] Coroutines
-    - [X] SIMD
-        - [X] x86
-        - [X] arm
-        - [ ] WASM
-    - [ ] Disk I/O
     - [ ] Time
         - [ ] Time
         - [ ] DeltaTime
         - [ ] Delay
         - [ ] FPS Control
+    - [ ] Disk I/O
     - [ ] Transform
         - [ ] ChildrenComponent
         - [ ] ParentComponent
@@ -52,9 +51,6 @@ A list of all planed features, TODO and done. Per catagory.
 ## Bindings
 - [ ] C++ ECS
 - [ ] C++ Abstracted
-- [ ] ...
-
-## CLI
 - [ ] ...
 
 ## IDE

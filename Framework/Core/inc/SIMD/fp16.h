@@ -1,5 +1,5 @@
-#ifndef _NXS_FP16_H_
-#define _NXS_FP16_H_
+#ifndef NXS_FP16_H
+#define NXS_FP16_H
 #include "std.h"
 #include "SIMD/simd.h"
 
@@ -572,4 +572,4 @@ NXS_STATIC_INLINE nxis_float16_t nxis_floorh(const nxis_float16_t f) {
 #endif
 }
 
-#endif //_NXS_FP16_H_
+#endif //NXS_FP16_H

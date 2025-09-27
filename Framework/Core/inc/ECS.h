@@ -1,5 +1,5 @@
-#ifndef _NXS_ECS_H_
-#define _NXS_ECS_H_
+#ifndef NXS_ECS_H
+#define NXS_ECS_H
 #include "std.h"
 
 /** ECS.h
@@ -341,4 +341,4 @@ bool NXS_ECS_UpdateQuery(NXS_ECS_World* world, NXS_ECS_Query* query);
  */
 bool NXS_ECS_UpdateQueries(NXS_ECS_World* world);
 
-#endif //_NXS_ECS_H_
+#endif //NXS_ECS_H

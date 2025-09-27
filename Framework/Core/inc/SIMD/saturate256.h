@@ -1,8 +1,7 @@
-#ifndef _NXS_SIMD256_SAT_H_
-#define _NXS_SIMD256_SAT_H_
+#ifndef NXS_SIMD256_SAT_H
+#define NXS_SIMD256_SAT_H
 #include "std.h"
 #include "SIMD/simd.h"
-
 
 /** nxis_trunc_float16x16_sat
  * TODO:

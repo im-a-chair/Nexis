@@ -1,5 +1,5 @@
-#ifndef _NXS_SIMD256_MASK_H_
-#define _NXS_SIMD256_MASK_H_
+#ifndef NXS_SIMD256_MASK_H
+#define NXS_SIMD256_MASK_H
 #include "std.h"
 #include "SIMD/simd.h"
 
@@ -3783,4 +3783,4 @@ NXS_STATIC_INLINE nxis_float64x4_t nxis_bit_deposit_float64x4_mask(const nxis_fl
     return;
 }
 
-#endif //_NXS_SIMD256_MASK_H_
+#endif //NXS_SIMD256_MASK_H

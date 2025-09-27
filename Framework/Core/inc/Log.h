@@ -1,5 +1,5 @@
-#ifndef _NXS_LOG_H_
-#define _NXS_LOG_H_
+#ifndef NXS_LOG_H
+#define NXS_LOG_H
 #include "std.h"
 
 /// TODO: for in Display lib: popup callback window(s) for warnings and errors
@@ -92,4 +92,4 @@ const char* NXS_Error(const char* msg);
  */
 inline bool NXS_HasError();
 
-#endif //_NXS_LOG_H_
+#endif //NXS_LOG_H

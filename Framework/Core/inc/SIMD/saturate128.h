@@ -1,5 +1,5 @@
-#ifndef _NXS_SIMD128_SAT_H_
-#define _NXS_SIMD128_SAT_H_
+#ifndef NXS_SIMD128_SAT_H
+#define NXS_SIMD128_SAT_H
 #include "std.h"
 #include "SIMD/simd.h"
 

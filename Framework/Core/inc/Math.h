@@ -1,7 +1,6 @@
-#ifndef _NXS_MATH_H_
-#define _NXS_MATH_H_
+#ifndef NXS_MATH_H
+#define NXS_MATH_H
 #include "std.h"
-#include "SIMD/simd.h"
 #include <math.h>
 
 /** TODO:
@@ -1022,4 +1021,4 @@ NXS_STATIC_INLINE NXS_Quaternion NXS_QuaternionSlerp(const NXS_Quaternion a, con
 //     return;
 // }
 
-#endif //_NXS_MATH_H_
+#endif //NXS_MATH_H

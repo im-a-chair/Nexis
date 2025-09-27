@@ -1,5 +1,5 @@
-#ifndef _NXS_SIMD512_SAT_MASK_H_
-#define _NXS_SIMD512_SAT_MASK_H_
+#ifndef NXS_SIMD512_SAT_MASK_H
+#define NXS_SIMD512_SAT_MASK_H
 #include "std.h"
 #include "SIMD/simd.h"
 

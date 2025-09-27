@@ -1,5 +1,5 @@
-#ifndef _NXS_SIMD_H_
-#define _NXS_SIMD_H_
+#ifndef NXS_SIMD_H
+#define NXS_SIMD_H
 #include "std.h"
 #include "SIMD/fp16.h"
 
@@ -3914,4 +3914,4 @@ NXS_STATIC_INLINE nxis_uint64x8_t nxis_float64x8_to_uint64x8_sat_mask(const nxis
     return;
 }
 
-#endif //_NXS_SIMD_H_
+#endif //NXS_SIMD_H
